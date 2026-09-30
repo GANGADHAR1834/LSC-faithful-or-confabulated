@@ -1,127 +1,56 @@
-# AXOLOTL-24 Shared Task on Explainable Semantic Change Modeling
+# Lexical semantic change detection
 
-AXOLOTL-24 stands for "_Ascertain and eXplain Overhauls of the Lexicon Over Time at LChange'24_"
+This project looks at how word meanings change over time.
 
-**It is a shared task in explainable semantic change modeling, collocated with the 
-[5th International Workshop on Computational Approaches to Historical Language Change 2024 (LChange'24)](https://www.changeiskey.org/event/2024-acl-lchange/).**
-This GitHub repository serves as the main information hub for AXOLOTL. 
-**The test phase has finished now. The leaderboards are [published](https://github.com/ltgoslo/axolotl24_shared_task/tree/main/results).**
+In simple terms, it asks: when a word is used in older texts and newer texts, does its meaning stay the same, or does it gain a new sense? The project also tries to explain the new meaning in a clear way.
 
-**See the [shared task description paper](https://aclanthology.org/2024.lchange-1.8/)**
+This repository includes the data, helper scripts, baseline methods, and result files used in the shared task.
 
-<img align="right" src="axolotl24.png" alt="Axolotl24" title="Axolotl24">
+## What this project is about
 
-If you are interested in this shared task, please also [join our low-volume mailing list on Google Groups](https://groups.google.com/g/axolotl-24/about).
+The goal is to study words across time and identify:
 
-- **[Results](https://github.com/ltgoslo/axolotl24_shared_task/tree/main/results)**
-- **[Training and development data](https://github.com/ltgoslo/axolotl24_shared_task/tree/main/data)** (Finnish and Russian)
-- **[Test data](https://github.com/ltgoslo/axolotl24_shared_task/tree/main/data/test)** (Finnish, Russian and German)
-- **[Details of the task in one English example](https://github.com/ltgoslo/axolotl24_shared_task/tree/main/example.md)**
-- **[Evaluation scripts](https://github.com/ltgoslo/axolotl24_shared_task/tree/main/code/evaluation)**
-- **[Baselines](https://github.com/ltgoslo/axolotl24_shared_task/tree/main/code/baselines)**
-- **[Codalab competition for Subtask 1](https://codalab.lisn.upsaclay.fr/competitions/18009)**
-- **[Codalab competition for Subtask 2](https://codalab.lisn.upsaclay.fr/competitions/18008)**
+- words that keep their old meaning,
+- words that gain a new meaning,
+- and short explanations for those new meanings.
+
+This is useful for language research, historical text analysis, and dictionary work.
+
+## Project folders
+
+- `data/` — datasets for the task, including training, development, and test examples
+- `code/` — evaluation scripts and baseline models
+- `results/` — leaderboard files and summary results
+- `example.md` — a short example showing the task in plain language
+- `predictions_*.tsv` — example prediction outputs
+
+## Main idea
+
+The task is divided into two parts:
+
+1. Find new word meanings in later texts
+2. Write a simple description for each new meaning
+
+For example, a word may have one meaning in older writing and a different one in newer writing. The system needs to notice that change and explain it.
+
+## Quick start
+
+If you want to explore the repo:
+
+- look in `data/` for the language datasets,
+- check `code/evaluation/` for scoring scripts,
+- and use `code/baselines/` to see simple starting methods.
+
+## Results
+
+The current result files are stored in the `results/` folder. They include leaderboards and comparison tables.
+
+## Notes
+
+This is a research project, so some terminology is technical, but the idea is simple: we are studying meaning changes in words across time.
+
+If you want a more detailed technical description, the full project background and formal task setup are described in the papers and links provided in the repository materials.
 
 ---
-## Timeline
-- **February 4 2024** - training data published
-- **March 25 2024** - test data published
-- **April 9 2024** - deadline for submission of the systems’ predictions
-- **April 10 2024** - AXOLOTL'24 test results published
-- ~~May 10 2024~~ **May 17 2024** - **Deadline extended** paper submission deadline (same procedure as with other LChange'24 papers). The questions on paper submission process (OpenReview technical problems, page number etc.) are better to be directed to LChange'24 organizers(lchange@changeiskey.org) .
 
-
-## Organizers
-- [Mariia Fedorova](https://www.mn.uio.no/ifi/english/people/aca/mariiaf/) (University of Oslo)
-- [Andrey Kutuzov](https://www.mn.uio.no/ifi/english/people/aca/andreku/) (University of Oslo)
-- [Timothee Mickus](https://timotheemickus.github.io/) (University of Helsinki)
-- [Niko Partanen](https://researchportal.helsinki.fi/en/persons/niko-partanen) (University of Helsinki)
-- [Janine Siewert](https://researchportal.helsinki.fi/en/persons/janine-siewert) (University of Helsinki)
-- [Elena Spaziani](https://phd.uniroma1.it/web/ELENA-SPAZIANI_nP1755394_EN.aspx) (Sapienza University Rome)
-
-
-
-## Introduction
-This shared task builds on the existing tradition of competitions in diachronic semantic change detection, like ([Schlechtweg et al 2020](https://aclanthology.org/2020.semeval-1.1/)) and many others. 
-However, this time we focus on _explaining_ diachronic semantic changes, even if on a very basic level (for now).
-
-In particular, we challenge the participants to implement a semantic change modeling system which, given two historical corpora and a sense inventory corresponding to one of the periods, is able to:
-1. Find the target word usages associated with **new, gained senses** (while at the same time correctly identyfing usages associated with the previously existing senses);
-2. **Describe the new senses** in a way that facilitates understanding and lexicographical research.
-
-Thus, the task is to  identify which exact senses were gained between two time periods and generate reasonable descriptions (definitions) of these senses.
-
-To be able to use high-quality gold data, we use a simplified setup where instead of asking the participants to retrieve and analyze all target word usages in raw corpora, we provide two manually checked sets of usage examples (still of considerable size). Below, we still call them "corpora", for clarity
-
-The shared task features data from **Finnish** and **Russian** languages, but you do not have to speak these languages to participate. 
-There will also  be a **surprise language** of lesser size at the test stage. For all these languages, we are using gold, manually annotated data to evaluate the predictions of the participant systems.
-
-The shared task consists of two subtasks. The participants are welcome to choose one of them or both, at their will.
-
-## Subtask 1. Bridging diachronic word uses and a synchronic dictionary
-
-[Codalab competition for Subtask 1 - development submissions](https://codalab.lisn.upsaclay.fr/competitions/18009)
-
-[Codalab competition for Subtask 1 - post-evaluation test submissions](https://codalab.lisn.upsaclay.fr/competitions/18570)
-
-The participants are offered two corpora, belonging to different time periods. In addition to this, they are provided with a set of **dictionary entries (sense inventories)** for the target words describing their senses in the **first** time period (accompanied by definitions). The task is to find usages of the target words belonging to **newly gained senses**, i.e., senses not covered by the provided sense inventory, as well as usages **belonging to the previously existing senses**.
-
-The assumption is that sense definitions from the dictionary, even though not always covering all word senses even from the same time period, may still be a useful additional source of information. The goal is to map word usages to the dictionary senses. This is very similar to **Word Sense Disambiguation**, with the difference being that the usages corresponding to word senses absent from the dictionary should be grouped into novel sense clusters (this is more similar to **Word Sense Induction**). In a way, this subtask is a mixture of WSD and WSI.
-
-
-* **Inputs**: a set of target words, two sets of usages for each target word (a usage is a  text fragment containing a target word); target word dictionary entries with sense ids for the **first** ("old") of two time periods.
-* **Predictions**: sense id for every word usage of the **second** ("new") time period (either re-using an id from the provided dictionary or adding a novel one). 
-* **Metrics**: Adjusted Rand Index (ARI) for all usages and macro-F1 for usages with existing senses
-* **Ground truth**: manually annotated sense inventories
-
-
-## Subtask 2. Definition generation for novel word senses.
-
-[Codalab competition for Subtask 2 - development submissions](https://codalab.lisn.upsaclay.fr/competitions/18008)
-
-[Codalab competition for Subtask 2 - post-evaluation test submissions](https://codalab.lisn.upsaclay.fr/competitions/18572)
-
-This subtask challenges the participants to submit good **descriptions/definitions for the novel senses** they found in subtask 1. The definitions can be generated from scratch or retrieved from existing ontologies: this is completely up to the participants. The organizers will map the predicted definitions to the gold standard ones and evaluate their quality with the standard NLG metrics.
-
-* **Inputs**: Same as subtask 1
-* **Predictions**: Same as subtask 1 plus a **dictionary-like definition for every novel sense of the target word** (a sense not present in the dictionary entry from the first time period)
-* **Metrics**: BLEU/ROUGE and BERTScore. The final score is averaged across target words
-* **Ground truth**: definitions from our gold standard sense inventories
-
-## References
-1. [Diachronic word embeddings and semantic shifts: a survey](https://aclanthology.org/C18-1117/) (Kutuzov et al., COLING 2018)
-2. [SemEval-2020 Task 1: Unsupervised Lexical Semantic Change Detection](https://aclanthology.org/2020.semeval-1.1/) (Schlechtweg et al., SemEval 2020)
-3. [Computational approaches to semantic change](https://zenodo.org/records/5040241) (Tahmasebi et al., LangSci Press 2021)
-4. [Semeval-2022 Task 1: CODWOE – Comparing Dictionaries and Word Embeddings](https://aclanthology.org/2022.semeval-1.1/) (Mickus et al., SemEval 2022)
-5. [Interpretable Word Sense Representations via Definition Generation: The Case of Semantic Change Analysis](https://aclanthology.org/2023.acl-long.176/) (Giulianelli et al., ACL 2023)
-
-## Citation
-```
-@inproceedings{fedorova-etal-2024-axolotl24,
-    title = "{AXOLOTL}{'}24 Shared Task on Multilingual Explainable Semantic Change Modeling",
-    author = "Fedorova, Mariia  and
-      Mickus, Timothee  and
-      Partanen, Niko  and
-      Siewert, Janine  and
-      Spaziani, Elena  and
-      Kutuzov, Andrey",
-    editor = "Tahmasebi, Nina  and
-      Montariol, Syrielle  and
-      Kutuzov, Andrey  and
-      Alfter, David  and
-      Periti, Francesco  and
-      Cassotti, Pierluigi  and
-      Huebscher, Netta",
-    booktitle = "Proceedings of the 5th Workshop on Computational Approaches to Historical Language Change",
-    month = aug,
-    year = "2024",
-    address = "Bangkok, Thailand",
-    publisher = "Association for Computational Linguistics",
-    url = "https://aclanthology.org/2024.lchange-1.8",
-    pages = "72--91",
-    abstract = "",
-}
-```
----
-
-_[5th International Workshop on Computational Approaches to Historical Language Change 2024 (LChange'24)](https://www.changeiskey.org/event/2024-acl-lchange/), August 15, 2024, Bangkok, Thailand_
+This repository is part of the AXOLOTL shared task for explainable semantic change modeling.
